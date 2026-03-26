@@ -1,0 +1,18 @@
+{
+  "name": "codecamp",
+  "owner": {
+    "name": "sahantelco",
+    "email": "sahantelco@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Internal Claude Code plugins for Codecamp engineering teams.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "codecamp-i18n",
+      "description": "i18n audit for Angular/Transloco projects — detects missing translations and unregistered keys",
+      "source": "./plugins/codecamp-i18n"
+    }
+  ]
+}

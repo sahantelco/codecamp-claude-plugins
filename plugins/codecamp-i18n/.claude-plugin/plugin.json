@@ -1,0 +1,9 @@
+{
+  "name": "codecamp-i18n",
+  "version": "1.0.0",
+  "description": "Translation audit for Codecamp Angular projects using @jsverse/transloco.",
+  "author": {
+    "name": "sahantelco"
+  },
+  "keywords": ["i18n", "transloco", "angular", "translations"]
+}
