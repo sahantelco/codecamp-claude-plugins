@@ -23,7 +23,7 @@ This project uses **`@jsverse/transloco`** for localization. Translation keys ar
 this.translate.translate('Some UI text')
 ```
 
-**Registration** — every key must be registered in the site's `app-translations.ts`:
+**Registration** — for this audit, validate registration from TypeScript usage only (skip HTML-only keys):
 ```
 client/<site>/src/app/.../app-translations/app-translations.ts
 ```
@@ -118,9 +118,13 @@ this.translationService.translate('Some text')
 - Environment-specific strings like `'production'`, `'development'`
 - Short single-word technical identifiers
 
-### Step 4 — Check registration in app-translations.ts
+### Step 4 — Check registration in app-translations.ts (TypeScript only)
 
-For each problematic string found:
+Only validate `app-translations.ts` registration for keys used in `.ts` files.
+
+Skip registration validation for keys that are only found in `.html` files.
+
+For each TypeScript-side key that is already translated (for example `this.translate.translate('the text')`):
 1. Determine which site the file belongs to (from its path, e.g. `client/teachers-site/...`)
 2. Read the corresponding `app-translations.ts`
 3. Check if `this.translate.translate('the text')` is already present
@@ -137,18 +141,15 @@ Context: <button>Click me</button>
 
 Fix in template:
   <button>{{ 'Click me' | transloco }}</button>
-
-Add to app-translations.ts:
-  this.translate.translate('Click me');
 ```
 
-If a key is used in the template/TS but is NOT registered in `app-translations.ts`:
+If a key is used in **TypeScript** but is NOT registered in `app-translations.ts`:
 
 ```
 ⚠️  MISSING REGISTRATION
-File: client/teachers-site/src/app/some/component.html (line 15)
+File: client/teachers-site/src/app/some/component.ts (line 15)
 Text: "Some text"
-Status: Uses transloco pipe ✓ — but NOT registered in app-translations.ts ✗
+Status: Uses translate() in TS ✓ — but NOT registered in app-translations.ts ✗
 
 Add to client/teachers-site/src/app/shared-declarations/app-translations/app-translations.ts:
   this.translate.translate('Some text');
@@ -163,7 +164,7 @@ If everything is correct:
 
 After reporting, ask the user if they want you to:
 1. Apply the transloco pipe/method wrapping to the flagged locations
-2. Add the missing keys to `app-translations.ts`
+2. Add missing `app-translations.ts` keys for TypeScript usage only
 
 Do not auto-apply fixes — confirm with the user first.
 
